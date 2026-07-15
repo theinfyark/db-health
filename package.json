@@ -1,0 +1,62 @@
+{
+  "name": "db-health",
+  "version": "1.0.0",
+  "description": "Database health monitoring toolkit for PostgreSQL, MySQL, MongoDB, and Redis — latency, pool metrics, readiness, and health endpoints.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --sourcemap",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "keywords": [
+    "database",
+    "postgres",
+    "mysql",
+    "mongodb",
+    "redis",
+    "health",
+    "monitoring"
+  ],
+  "author": "Anil Kumar <anilachary67@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theinfyark/db-health.git"
+  },
+  "bugs": {
+    "url": "https://github.com/theinfyark/db-health/issues"
+  },
+  "homepage": "https://github.com/theinfyark/db-health#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/anilachary"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.3"
+  }
+}
