@@ -1,6 +1,6 @@
 {
   "name": "db-health",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Database health monitoring toolkit for PostgreSQL, MySQL, MongoDB, and Redis — latency, pool metrics, readiness, and health endpoints.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -35,7 +35,17 @@
     "mongodb",
     "redis",
     "health",
-    "monitoring"
+    "monitoring",
+    "healthcheck",
+    "health-check",
+    "db-monitoring",
+    "readiness",
+    "liveness",
+    "kubernetes",
+    "probe",
+    "connection-pool",
+    "typescript",
+    "nodejs"
   ],
   "author": "Anil Kumar <anilachary67@gmail.com>",
   "license": "MIT",
