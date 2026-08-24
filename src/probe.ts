@@ -1,16 +1,18 @@
 import type { DbTarget, PoolMetrics, TargetResult } from "./types.js";
 
 async function withTimeout<T>(
-  promise: Promise<T>,
+  factory: (signal: AbortSignal) => Promise<T>,
   timeoutMs: number,
   label: string,
 ): Promise<T> {
+  const ac = new AbortController();
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
     return await Promise.race([
-      promise,
+      factory(ac.signal),
       new Promise<T>((_resolve, reject) => {
         timer = setTimeout(() => {
+          ac.abort();
           reject(new Error(`${label} timed out after ${timeoutMs}ms`));
         }, timeoutMs);
       }),
@@ -32,7 +34,7 @@ export async function probeTarget(
   const started = Date.now();
 
   try {
-    await withTimeout(Promise.resolve(target.check()), timeoutMs, name);
+    await withTimeout((signal) => Promise.resolve(target.check(signal)), timeoutMs, name);
     let pool: PoolMetrics | undefined;
     if (target.pool) {
       try {

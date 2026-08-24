@@ -14,7 +14,7 @@ export interface DbTarget {
   name?: string;
   kind: DbKind;
   /** Required ping / readiness probe */
-  check: () => Promise<void> | void;
+  check: (signal?: AbortSignal) => Promise<void> | void;
   /** Optional pool metrics collector */
   pool?: () => PoolMetrics | Promise<PoolMetrics>;
   /** Soft dependency — failure becomes "degraded" not hard fail when optional */

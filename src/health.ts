@@ -68,6 +68,7 @@ export class DbHealth {
     return {
       ...report,
       status: report.ready ? (report.status === "down" ? "degraded" : report.status) : "down",
+      ready: report.ready,
       live: true,
     };
   }

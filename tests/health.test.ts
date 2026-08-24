@@ -115,6 +115,24 @@ describe("db-health", () => {
     expect(report.targets[0]?.error).toMatch(/timed out/i);
   });
 
+  it("passes AbortSignal into check", async () => {
+    let received: AbortSignal | undefined;
+    const health = new DbHealth({
+      targets: [
+        {
+          kind: "redis",
+          name: "sig",
+          check: (signal) => {
+            received = signal;
+          },
+        },
+      ],
+    });
+
+    await health.check();
+    expect(received).toBeInstanceOf(AbortSignal);
+  });
+
   it("health handler returns 200/503 JSON", async () => {
     const health = new DbHealth({
       targets: [
